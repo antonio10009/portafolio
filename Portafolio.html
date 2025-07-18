@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antonio Díaz - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Tema claro - Verde natural */
+            --primary-green: #2d5016;
+            --secondary-green: #4a7c59;
+            --accent-green: #68a085;
+            --light-green: #9bb7aa;
+            --bg-primary: #f8fffe;
+            --bg-secondary: #e8f5e8;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --white: #ffffff;
+            --shadow: rgba(45, 80, 22, 0.1);
+            --border: rgba(45, 80, 22, 0.2);
+        }
+
+        [data-theme="dark"] {
+            /* Tema oscuro - Verde natural */
+            --primary-green: #68a085;
+            --secondary-green: #4a7c59;
+            --accent-green: #9bb7aa;
+            --light-green: #2d5016;
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a2332;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --white: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: rgba(148, 163, 184, 0.2);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Header y Navegación */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: var(--primary-green);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--secondary-green);
+        }
+
+        /* Contenido principal */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 0;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Sección Home */
+        .hero {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        /* CV Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary-green);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-green);
+        }
+
+        .timeline-date {
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .Linkedin {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            color: var(--text-secondary);
+        }
+
+        .contact-value a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--primary-green);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            margin-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animaciones */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Elementos flotantes */
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 10%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Elementos flotantes de fondo -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#home" class="logo">PortfDíaz 🌿</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-section="about">Sobre Mí</a></li>
+                <li><a href="#cv" class="nav-link" data-section="cv">CV</a></li>
+                <li><button class="theme-toggle" id="themeToggle">🌙</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <!-- Sección Home -->
+        <section id="home" class="section active fade-in">
+            <div class="hero">
+                <h1 class="hero-title">Antonio Díaz</h1>
+                <h2 class="hero-subtitle">Ingeniería en Informática</h2>
+                <p class="hero-description">
+                    Apasionado por los desafíos, el aprendizaje continuo sobre las últimas tendencias 
+                    tecnológicas y curioso por observar el panorama empresarial. Siempre en búsqueda de soluciones innovadoras.
+                </p>
+                <a href="#footer" class="cta-button">¡Contáctame!</a>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">🚀 Proyectos Destacados</h3>
+                <p>Puedes visualizar mis proyectos recientes desarrollados con tecnologías modernas.</p>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <strong>IncidPro</strong><br>
+                        <span style="color: var(--text-secondary);">Gestión Integrada de Incidentes</span>
+                        <div style="margin-top: 10px;"></div>
+                        <a href="https://github.com/antonio10009/incidpro" target="_blank" style="color: var(--primary-green); text-decoration: none; font-size: 0.9rem;">💻 Ver código</a>
+                    </div>
+                    <div class="skill-item">
+                        <strong>Incendios</strong><br>
+                        <span style="color: var(--text-secondary);">Gestión de Incendios Forestales</span>
+                        <div style="margin-top: 10px;"></div>
+                        <a href="https://github.com/antonio10009/Incendios" target="_blank" style="color: var(--primary-green); text-decoration: none; font-size: 0.9rem;">💻 Ver código</a>
+                    </div>
+                    <div class="skill-item">
+                        <strong>Clínica</strong><br>
+                        <span style="color: var(--text-secondary);">Observaciones médicas de pacientes</span>
+                        <div style="margin-top: 10px;"></div>
+                        <a href="https://github.com/antonio10009/ProyectoClinica" target="_blank" style="color: var(--primary-green); text-decoration: none; font-size: 0.9rem;">💻 Ver código</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Sobre Mí -->
+        <section id="about" class="section">
+            <div class="card fade-in">
+                <h2 class="card-title">🌱 Sobre Mí</h2>
+                <p>
+                    Soy Analista Programador, cuento con experiencia en desarrollo web, soporte técnico, análisis de documentación y
+                    conocimientos actualizados de la tecnología, los cuales son respaldados por
+                    el nivel regional obtenido en la competencia Huawei ICT Academy.
+                </p>
+                <p>
+                    Mi objetivo es aportar valor a la empresa a través de mis conocimientos y experiencia práctica en el desarrollo de soluciones tecnológicas.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">🏢 Habilidades Blandas</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">Analítico</div>
+                    <div class="skill-item">Autónomo</div>
+                    <div class="skill-item">Colaborativo</div>
+                    <div class="skill-item">Control Emocional</div>
+                    <div class="skill-item">Iniciativa</div>
+                    <div class="skill-item">Orientado a resultados</div>
+                    <div class="skill-item">Resolución de problemas</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">💻 Habilidades Técnicas</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">Python</div>
+                    <div class="skill-item">PowerBI</div>
+                    <div class="skill-item">SQL Server</div>
+                    <div class="skill-item">HTML/CSS</div>
+                    <div class="skill-item">AWS Services</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">🎯 Intereses</h3>
+                <p>
+                    • Análisis y Predicción de Datos<br>
+                    • Computación en la nube (AWS)<br>
+                    • Gestión de proyectos tecnológicos<br>
+                    • Soporte técnico y resolución de problemas<br>
+                    • Participación en competencias tecnológicas
+                </p>
+            </div>
+        </section>
+
+        <!-- Sección CV -->
+        <section id="cv" class="section">
+            <div class="card fade-in">
+                <h2 class="card-title">📄 Curriculum Vitae</h2>
+                
+                <h3 style="color: var(--primary-green); margin-top: 2rem;">Experiencia Laboral</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Enero - Marzo 2025</div>
+                        <div class="timeline-title">Soporte Técnico</div>
+                        <div>Sonda - BCI</div>
+                        <p>• Resolución de Problemas</p>
+                        <p>• Securitización de Equipos</p>
+                        <p>• Formateo de Sistemas Operativos</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Enero - Marzo 2024</div>
+                        <div class="timeline-title">Soporte Técnico</div>
+                        <div>Sonda - Entel</div>
+                        <p>• Mantención de Computadores</p>
+                        <p>• Resolución de Problemas</p>
+                        <p>• Formateo, Instalación y Configuración de Equipos</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Febrero - Marzo 2023</div>
+                        <div class="timeline-title">Soporte Técnico</div>
+                        <div>MetroGas S.A</div>
+                        <p>• Armado y Desarmado de Computadores</p>
+                        <p>• Formateo de Sistemas Operativos</p>
+                        <p>• Configuración de Computadores</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Agosto - Noviembre 2022</div>
+                        <div class="timeline-title">Creador de Página Web</div>
+                        <div>Práctica Profesional</div>
+                        <div>ONG Cuida Tu Agua Chile</div>
+                        <p>• Administrador de Página Web</p>
+                        <p>• Análisis de Documentación</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary-green); margin-top: 2rem;">Educación</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 - 2025</div>
+                        <div class="timeline-title">Estudiante en Ingeniería en Informática</div>
+                        <div>Inacap Santiago Centro</div>
+                        <p>Proyecto de Tesis - Gestión Integrada de Incidentes en Establecimientos Educacionales</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2020 - 2022</div>
+                        <div class="timeline-title">Analista Programador</div>
+                        <div>Inacap Santiago Centro</div>
+                        <p>Títulado en Analista Programador</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary-green); margin-top: 2rem;">Logros</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024 - 2025</div>
+                        <div class="timeline-title"><a href="https://www.linkedin.com/posts/huaweilatam_huawei-ictcompetition-chile-activity-7313604658374053889-W_cR?utm_source=share&utm_medium=member_desktop&rcm=ACoAACu5AXEBA7aOJxC6okOVeasWLUCvKstQg7g" style="color: var(--primary-green); text-decoration: none;">Huawei ICT Academy</a></div>
+                        <div>Participante en la competencia Huawei</div>
+                        <p>🏆 1er lugar en el track de Cloud en el examen nacional con un puntaje de 749 puntos</p>
+                        <p>🌟 Fase regional alcanzada</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary-green); margin-top: 2rem;">Certificaciones</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-title"><a href="https://drive.google.com/file/d/1AH_ypeJ39LBHhcLwfWU91IdOwTgQcZ85/view" style="color: var(--primary-green); text-decoration: none;">Amazon Web Services</a></div>
+                        <div>AWS Certified Cloud Practitioner</div>
+                        <p>✅ Certificación oficial en servicios de computación en la nube</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer con información de contacto -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <h2 class="footer-title">📞 Información de Contacto</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                ¡Aquí puedes ver mis puntos de contactos!
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-label">Correo Electrónico</div>
+                    <div class="contact-value">
+                        <a href="mailto:antonio.diaz@ejemplo.com">antoniodiazabarca1@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-label">Número de Teléfono</div>
+                    <div class="contact-value">
+                        <a href="tel:+56912345678">+56 9 3724 7294</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon"><img src="145807.png" alt="LinkedIn" style="width: 40px; height: 40px;"></div> 
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">
+                        <a href="https://www.linkedin.com/in/antonio-diaz-abarca/" target="_blank">/in/antonio-diaz-abarca</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon"><img src="733553.png" alt="Github" style="width: 40px; height: 40px;"></div> 
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">
+                        <a href="https://github.com/antonio10009" target="_blank">github.com/antonio10009</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Antonio Díaz - Desarrollado con 💚 (Adoro el color verde)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cambio de tema
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Verificar tema guardado
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        // Navegación entre secciones
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remover clase active de todos los links
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Agregar clase active al link clickeado
+                link.classList.add('active');
+                
+                // Ocultar todas las secciones
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Mostrar la sección correspondiente
+                const targetSection = link.getAttribute('data-section');
+                const section = document.getElementById(targetSection);
+                if (section) {
+                    section.classList.add('active');
+                    section.classList.add('fade-in');
+                }
+            });
+        });
+        
+        // Efecto de scroll suave para el header
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Función para scroll suave al footer
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('footer').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
