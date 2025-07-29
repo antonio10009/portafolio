@@ -60,6 +60,7 @@
             font-weight: 600;
             margin: 1rem 0;
             animation: pulse 2s infinite;
+            text-align: center;
         }
 
         /* Header y Navegación */
@@ -85,7 +86,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -189,16 +190,36 @@
             background: var(--secondary-green);
         }
 
+        /* Botón de menú móvil */
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--primary-green);
+            border: none;
+            border-radius: 8px;
+            width: 45px;
+            height: 45px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: var(--secondary-green);
+        }
+
         /* Contenido principal */
         .main-content {
             margin-top: 80px;
-            padding: 2rem;
+            padding: 1rem;
         }
 
         .section {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 0;
+            padding: 2rem 0;
             display: none;
         }
 
@@ -209,7 +230,7 @@
         /* Sección Home */
         .hero {
             text-align: center;
-            padding: 6rem 0;
+            padding: 4rem 0;
         }
 
         .hero-title {
@@ -318,7 +339,7 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
             margin-top: 2rem;
         }
@@ -330,6 +351,7 @@
             text-align: center;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .skill-item:hover {
@@ -425,6 +447,8 @@
         .faq-icon {
             font-size: 1.3rem;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
         }
 
         .faq-item.active .faq-icon {
@@ -507,6 +531,7 @@
 
         .contact-value {
             color: var(--text-secondary);
+            word-break: break-word;
         }
 
         .contact-value a {
@@ -527,14 +552,77 @@
             font-size: 0.9rem;
         }
 
-        /* Responsivo */
+        /* Responsivo para tablets y móviles */
+        @media (max-width: 1024px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem 0;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
             .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--bg-primary);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 2rem 0;
                 gap: 1rem;
+                transition: left 0.3s ease;
+                backdrop-filter: blur(10px);
+                border-right: 1px solid var(--border);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-link {
+                width: 80%;
+                text-align: center;
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+            
+            .theme-toggle {
+                margin-top: 2rem;
+            }
+
+            .hero {
+                padding: 3rem 0;
             }
 
             .hero-title {
                 font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+                padding: 0 1rem;
             }
 
             .nav-container {
@@ -542,11 +630,126 @@
             }
 
             .skills-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.8rem;
+            }
+            
+            .skill-item {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.85rem;
             }
 
             .contact-info {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .contact-item {
+                padding: 1.2rem;
+            }
+            
+            .card-title {
+                font-size: 1.5rem;
+            }
+            
+            .timeline {
+                padding-left: 1.5rem;
+            }
+            
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+            
+            .faq-question {
+                padding: 1.2rem;
+                font-size: 1rem;
+            }
+            
+            .faq-answer {
+                padding: 0 1.2rem;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 1.2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .close-modal {
+                top: 20px;
+                right: 30px;
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+                margin: 1.5rem 0;
+            }
+            
+            .card-title {
+                font-size: 1.3rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+            
+            .skill-item {
+                padding: 0.6rem 0.3rem;
+                font-size: 0.8rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .availability-badge {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .footer-title {
+                font-size: 1.5rem;
+            }
+            
+            .timeline-title {
+                font-size: 1.1rem;
+            }
+            
+            .timeline-date {
+                font-size: 0.8rem;
+            }
+            
+            .faq-question {
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .contact-icon {
+                font-size: 1.5rem;
             }
         }
 
@@ -591,6 +794,13 @@
             50% { transform: translateY(-20px); }
         }
 
+        /* Ocultar elementos flotantes en móviles */
+        @media (max-width: 768px) {
+            .floating-element {
+                display: none;
+            }
+        }
+
         /* Scroll suave */
         html {
             scroll-behavior: smooth;
@@ -607,7 +817,8 @@
     <header class="header">
         <nav class="nav-container">
             <a href="#home" class="logo">PortfDíaz 🌿</a>
-            <ul class="nav-menu">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
                 <li><a href="#about" class="nav-link" data-section="about">Sobre Mí</a></li>
                 <li><a href="#cv" class="nav-link" data-section="cv">CV</a></li>
@@ -945,8 +1156,15 @@
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
-        // Verificar tema guardado
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        // Verificar tema guardado (usando variables para compatibilidad móvil)
+        let savedTheme = 'light';
+        try {
+            savedTheme = localStorage.getItem('theme') || 'light';
+        } catch (e) {
+            // En caso de que localStorage no esté disponible
+            savedTheme = 'light';
+        }
+        
         body.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
         
@@ -955,13 +1173,27 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
             body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            try {
+                localStorage.setItem('theme', newTheme);
+            } catch (e) {
+                // En caso de que localStorage no esté disponible
+                console.log('LocalStorage no disponible');
+            }
             updateThemeIcon(newTheme);
         });
         
         function updateThemeIcon(theme) {
             themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
         }
+        
+        // Menú móvil
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+        });
         
         // Navegación entre secciones
         const navLinks = document.querySelectorAll('.nav-link');
@@ -970,6 +1202,10 @@
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
+                
+                // Cerrar menú móvil
+                navMenu.classList.remove('active');
+                mobileMenuToggle.textContent = '☰';
                 
                 // Remover clase active de todos los links
                 navLinks.forEach(l => l.classList.remove('active'));
@@ -990,6 +1226,14 @@
                     section.classList.add('fade-in');
                 }
             });
+        });
+        
+        // Cerrar menú móvil al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.textContent = '☰';
+            }
         });
         
         // Efecto de scroll suave para el header
@@ -1058,6 +1302,19 @@
                 }
             });
         });
+
+        // Prevenir zoom en iOS al hacer doble tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // Mejorar rendimiento en dispositivos táctiles
+        document.addEventListener('touchstart', function() {}, true);
     </script>
 </body>
 </html>
