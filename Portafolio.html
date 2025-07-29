@@ -18,6 +18,7 @@
             --accent-green: #68a085;
             --light-green: #9bb7aa;
             --bg-primary: #f8fffe;
+            --success: #10b981;
             --bg-secondary: #e8f5e8;
             --text-primary: #1a1a1a;
             --text-secondary: #4a5568;
@@ -50,6 +51,17 @@
             min-height: 100vh;
         }
 
+        .availability-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--success), #34d399);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+
         /* Header y Navegación */
         .header {
             background: rgba(255, 255, 255, 0.1);
@@ -69,6 +81,62 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-item {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--shadow);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-item:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .project-info h4 {
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         .logo {
@@ -184,6 +252,46 @@
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        /* Modal de imagen */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.85);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 80%;
+            margin: auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         /* Cards */
@@ -376,6 +484,11 @@
             }
         }
 
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         /* Animaciones */
         .fade-in {
             animation: fadeIn 0.6s ease-in;
@@ -443,10 +556,14 @@
         <section id="home" class="section active fade-in">
             <div class="hero">
                 <h1 class="hero-title">Antonio Díaz</h1>
-                <h2 class="hero-subtitle">Ingeniería en Informática</h2>
+                <h2 class="hero-subtitle">Ingeniero en Informática</h2>
+                <div class="availability-badge">
+                🚀 Disponible para Práctica Profesional
+                </div>
                 <p class="hero-description">
                     Apasionado por los desafíos, el aprendizaje continuo sobre las últimas tendencias 
-                    tecnológicas y curioso por observar el panorama empresarial. Siempre en búsqueda de soluciones innovadoras.
+                    tecnológicas y curioso por observar el panorama empresarial. Siempre en búsqueda de soluciones innovadoras.<br>
+                    Cuento con referencias laborales.
                 </p>
                 <a href="#footer" class="cta-button">¡Contáctame!</a>
             </div>
@@ -454,24 +571,24 @@
             <div class="card">
                 <h3 class="card-title">🚀 Proyectos Destacados</h3>
                 <p>Puedes visualizar mis proyectos recientes desarrollados con tecnologías modernas.</p>
-                <div class="skills-grid">
-                    <div class="skill-item">
-                        <strong>IncidPro</strong><br>
-                        <span style="color: var(--text-secondary);">Gestión Integrada de Incidentes</span>
-                        <div style="margin-top: 10px;"></div>
-                        <a href="https://github.com/antonio10009/incidpro" target="_blank" style="color: var(--primary-green); text-decoration: none; font-size: 0.9rem;">💻 Ver código</a>
+                <div class="projects-grid">
+                    <div class="project-item">
+                        <div class="project-image">
+                            <img src="https://i.imgur.com/jmLLeq8.png" alt="IncidPro - Gestión Integrada de Incidentes" />
+                        </div>
+                        <div class="project-info">
+                            <h4>IncidPro</h4>
+                            <p>Gestión Integrada de Incidentes</p>
+                        </div>
                     </div>
-                    <div class="skill-item">
-                        <strong>Incendios</strong><br>
-                        <span style="color: var(--text-secondary);">Gestión de Incendios Forestales</span>
-                        <div style="margin-top: 10px;"></div>
-                        <a href="https://github.com/antonio10009/Incendios" target="_blank" style="color: var(--primary-green); text-decoration: none; font-size: 0.9rem;">💻 Ver código</a>
-                    </div>
-                    <div class="skill-item">
-                        <strong>Clínica</strong><br>
-                        <span style="color: var(--text-secondary);">Observaciones médicas de pacientes</span>
-                        <div style="margin-top: 10px;"></div>
-                        <a href="https://github.com/antonio10009/ProyectoClinica" target="_blank" style="color: var(--primary-green); text-decoration: none; font-size: 0.9rem;">💻 Ver código</a>
+                    <div class="project-item">
+                        <div class="project-image">
+                            <img src="https://i.imgur.com/kyU3zWf.png" alt="Incendios - Gestión de Incendios Forestales" />
+                        </div>
+                        <div class="project-info">
+                            <h4>Incendios</h4>
+                            <p>Gestión de Incendios Forestales</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -482,11 +599,11 @@
             <div class="card fade-in">
                 <h2 class="card-title">🌱 Sobre Mí</h2>
                 <p>
-                    Soy Analista Programador, cuento con experiencia en desarrollo web, soporte técnico, análisis de documentación y
+                    Egresado de Ingeniería en Informática en búsqueda de práctica profesional, cuento con experiencia en desarrollo web, soporte técnico, análisis de documentación y
                     conocimientos actualizados de la tecnología, los cuales son respaldados por
                     el nivel regional obtenido en la competencia Huawei ICT Academy.
                 </p>
-                <p>
+                <p><br>
                     Mi objetivo es aportar valor a la empresa a través de mis conocimientos y experiencia práctica en el desarrollo de soluciones tecnológicas.
                 </p>
             </div>
@@ -507,23 +624,39 @@
             <div class="card">
                 <h3 class="card-title">💻 Habilidades Técnicas</h3>
                 <div class="skills-grid">
-                    <div class="skill-item">JavaScript</div>
-                    <div class="skill-item">Python</div>
-                    <div class="skill-item">PowerBI</div>
-                    <div class="skill-item">SQL Server</div>
-                    <div class="skill-item">HTML/CSS</div>
                     <div class="skill-item">AWS Services</div>
+                    <div class="skill-item">Bizagi Modeler</div>
+                    <div class="skill-item">Excel</div>
+                    <div class="skill-item">Google Colab</div>
+                    <div class="skill-item">HTML/CSS</div>
+                    <div class="skill-item">Jupyter</div>
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">Kali Linux</div>
+                    <div class="skill-item">KNIME</div>
+                    <div class="skill-item">Matplotlib</div>
+                    <div class="skill-item">MongoDB</div>
+                    <div class="skill-item">Oracle SQL</div>
+                    <div class="skill-item">OWASP ZAP</div>
+                    <div class="skill-item">PostMan</div>
+                    <div class="skill-item">PowerBI</div>
+                    <div class="skill-item">Python</div>
+                    <div class="skill-item">R Studio</div>
+                    <div class="skill-item">SQL Server</div>
                 </div>
             </div>
 
             <div class="card">
                 <h3 class="card-title">🎯 Intereses</h3>
                 <p>
-                    • Análisis y Predicción de Datos<br>
-                    • Computación en la nube (AWS)<br>
-                    • Gestión de proyectos tecnológicos<br>
-                    • Soporte técnico y resolución de problemas<br>
-                    • Participación en competencias tecnológicas
+                    • Análisis, visualización y predicción de datos.<br>
+                    • Uso de servicios de computación en la nube, especialmente AWS.<br>
+                    • Gestión y ejecución de proyectos tecnológicos.<br>
+                    • Soporte técnico y resolución eficiente de problemas informáticos.<br>
+                    • Participación activa en competencias y desafíos tecnológicos.<br>
+                    • Detección y análisis de vulnerabilidades en software.<br>
+                    • Generación de gráficos y dashboards interactivos.<br>
+                    • Diseño y construcción de flujos basados en patrones de software.<br>
+                    • Evaluación y revisión de la seguridad en aplicaciones y sistemas.
                 </p>
             </div>
         </section>
@@ -576,9 +709,10 @@
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-date">2023 - 2025</div>
-                        <div class="timeline-title">Estudiante en Ingeniería en Informática</div>
+                        <div class="timeline-title">Ingeniería en Informática</div>
                         <div>Inacap Santiago Centro</div>
-                        <p>Proyecto de Tesis - Gestión Integrada de Incidentes en Establecimientos Educacionales</p>
+                        <p>Proyecto de Tesis Aprobada - Gestión Integrada de Incidentes en Establecimientos Educacionales</p>
+                        <p>Egresado de Ingeniería en Informática</p>
                     </div>
                     
                     <div class="timeline-item">
@@ -625,7 +759,7 @@
                     <div class="contact-icon">📧</div>
                     <div class="contact-label">Correo Electrónico</div>
                     <div class="contact-value">
-                        <a href="mailto:antonio.diaz@ejemplo.com">antoniodiazabarca1@gmail.com</a>
+                        <a href="mailto:antoniodiazabarca1@gmail.com">antoniodiazabarca1@gmail.com</a>
                     </div>
                 </div>
                 
@@ -633,32 +767,38 @@
                     <div class="contact-icon">📱</div>
                     <div class="contact-label">Número de Teléfono</div>
                     <div class="contact-value">
-                        <a href="tel:+56912345678">+56 9 3724 7294</a>
+                        <a href="tel:+56937247294">+56 9 3724 7294</a>
                     </div>
                 </div>
                 
                 <div class="contact-item">
-                    <div class="contact-icon"><img src="145807.png" alt="LinkedIn" style="width: 40px; height: 40px;"></div> 
+                    <div class="contact-icon">💼</div>
                     <div class="contact-label">LinkedIn</div>
                     <div class="contact-value">
                         <a href="https://www.linkedin.com/in/antonio-diaz-abarca/" target="_blank">/in/antonio-diaz-abarca</a>
                     </div>
                 </div>
-                
+
                 <div class="contact-item">
-                    <div class="contact-icon"><img src="733553.png" alt="Github" style="width: 40px; height: 40px;"></div> 
+                    <div class="contact-icon">💻</div>
                     <div class="contact-label">GitHub</div>
                     <div class="contact-value">
                         <a href="https://github.com/antonio10009" target="_blank">github.com/antonio10009</a>
                     </div>
                 </div>
-            </div>
+               </div> 
             
             <div class="footer-bottom">
                 <p>&copy; 2025 Antonio Díaz - Desarrollado con 💚 (Adoro el color verde)</p>
             </div>
         </div>
     </footer>
+
+        <!-- Modal de imagen -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
 
     <script>
         // Cambio de tema
@@ -734,6 +874,32 @@
                 behavior: 'smooth'
             });
         });
+
+        // Modal de imagen
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Al hacer clic en cualquier imagen dentro de .project-image
+        document.querySelectorAll('.project-image img').forEach(img => {
+            img.addEventListener('click', () => {
+                modal.style.display = "flex";
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+            });
+        });
+
+        // Cerrar modal al hacer clic en la X
+        closeModal.onclick = () => {
+            modal.style.display = "none";
+        };
+
+        // Cerrar al hacer clic fuera de la imagen
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        };
     </script>
 </body>
 </html>
