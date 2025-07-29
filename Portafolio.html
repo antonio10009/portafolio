@@ -387,6 +387,72 @@
             height: 20px;
         }
 
+        /* FAQ Styles */
+        .faq-container {
+            margin-top: 2rem;
+        }
+
+        .faq-item {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .faq-question {
+            background: var(--primary-green);
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--secondary-green);
+        }
+
+        .faq-icon {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            margin-bottom: 1rem;
+        }
+
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+
         /* Footer */
         .footer {
             background: var(--white);
@@ -545,6 +611,7 @@
                 <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
                 <li><a href="#about" class="nav-link" data-section="about">Sobre Mí</a></li>
                 <li><a href="#cv" class="nav-link" data-section="cv">CV</a></li>
+                <li><a href="#faq" class="nav-link" data-section="faq">FAQ</a></li>
                 <li><button class="theme-toggle" id="themeToggle">🌙</button></li>
             </ul>
         </nav>
@@ -744,6 +811,79 @@
                 </div>
             </div>
         </section>
+
+        <!-- Sección FAQ -->
+        <section id="faq" class="section">
+            <div class="card fade-in">
+                <h2 class="card-title">❓ Preguntas Frecuentes</h2>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary);">
+                    Aquí encontrarás respuestas a las preguntas más comunes sobre mi perfil profesional.
+                </p>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>¿Por qué buscas práctica profesional?</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Porque me apasiona realizar desafíos tecnológicos, aportar valores a la empresa y soy ese tipo de persona que tiene "hambre" del aprendizaje de la informática.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>¿De qué se trata Huawei ICT Academy?</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Es un concurso de Huawei que busca formar profesionales en tecnologías de la información y comunicación (TIC) a través de la cooperación con universidades.</p>
+                            <p>En esta etapa me enfrenté a desafiar nuevos conceptos tecnológicos de la revolución industrial y además conocer las tendencias de China.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>¿Te gusta el Inglés?</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sí, me encanta, pero me gustaría seguir aprendiendo para entablar conversaciones con personas del mismo idioma y participar en charlas fundamentales en las empresas.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>¿Por qué hiciste este portafolio?</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Porque quiero demostrar mi interés a los contactos y empresas, sobre todo mi compromiso.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>¿Tienes referencias laborales?</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sí, por supuesto. En caso de solicitud, me contactas y envío la información necesaria.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>¿Cómo lograste aprobar todo en tu carrera, logros y certificados?</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Es un tema fundamental, pero fui un estudiante que siempre se tomaba en serio la carrera, más la puntualidad, responsabilidad y perseverancia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer con información de contacto -->
@@ -900,6 +1040,24 @@
                 modal.style.display = "none";
             }
         };
+
+        // FAQ Accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Cerrar todos los FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Abrir el FAQ clickeado si no estaba activo
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
