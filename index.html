@@ -84,6 +84,12 @@
             align-items: center;
         }
 
+        .nav-right-container { /* Nuevo contenedor para alinear elementos de la derecha */
+            display: flex; /* Activa Flexbox para agrupar los elementos de la derecha */
+            align-items: center;
+            gap: 2rem; /* Espacio entre el menú y el botón de tema en escritorio */
+        }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -193,17 +199,6 @@
         /* Botón de menú móvil */
         .mobile-menu-toggle {
             display: none;
-            background: var(--primary-green);
-            border: none;
-            border-radius: 8px;
-            width: 45px;
-            height: 45px;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            align-items: center;
-            justify-content: center;
         }
 
         .mobile-menu-toggle:hover {
@@ -572,10 +567,6 @@
         }
 
         @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            
             .nav-menu {
                 position: fixed;
                 top: 80px;
@@ -599,7 +590,7 @@
             .nav-link {
                 width: 80%;
                 text-align: center;
-                padding: 1rem;
+                padding: 0.5rem;
                 font-size: 1.1rem;
             }
             
@@ -627,6 +618,49 @@
 
             .nav-container {
                 padding: 1rem;
+            }
+
+            .nav-right-container {
+                display: flex;
+                order: 1;
+                margin-left: auto;
+                gap: 0.8rem;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                padding: 12px;
+                border-radius: 10px;
+                order: 2;
+            }
+
+            .theme-toggle {
+                margin-top: 0;
+                order: 1;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--bg-primary);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 2rem 0;
+                gap: 1rem;
+                transition: left 0.3s ease;
+                backdrop-filter: blur(10px);
+                border-right: 1px solid var(--border);
+                z-index: 999; /* Asegura que el menú esté sobre el contenido */
+                /* Importante: para que el menú deslizante funcione correctamente, el JS debe controlar el 'display' o la 'left' */
+                /* Si el JS usa la clase 'active' para moverlo, no necesitas display:none aquí, solo left: -100% */
+            }
+
+            .nav-menu.active {
+                left: 0;
+                /* Si usas display:none/flex, necesitarías display:flex aquí */
             }
 
             .skills-grid {
@@ -814,19 +848,19 @@
     <div class="floating-element"></div>
 
     <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="#home" class="logo">PortfDíaz 🌿</a>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
-            <ul class="nav-menu" id="navMenu">
+<header class="header">
+    <nav class="nav-container">
+        <a href="#home" class="logo">PortfDíaz 🌿</a>
+        <div class="nav-right-container"> <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+            <button class="theme-toggle" id="themeToggle">🌙</button> <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
                 <li><a href="#about" class="nav-link" data-section="about">Sobre Mí</a></li>
                 <li><a href="#cv" class="nav-link" data-section="cv">CV</a></li>
                 <li><a href="#faq" class="nav-link" data-section="faq">FAQ</a></li>
-                <li><button class="theme-toggle" id="themeToggle">🌙</button></li>
-            </ul>
-        </nav>
-    </header>
+                </ul>
+        </div>
+    </nav>
+</header>
 
     <!-- Contenido principal -->
     <main class="main-content">
